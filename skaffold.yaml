@@ -17,3 +17,23 @@ manifests:
     - ./infra/k8s/*
 deploy:
   kubectl: {}
+# Google Cloud Config
+# apiVersion: skaffold/v4beta5
+# kind: Config
+# build:
+#   googleCloudBuild:
+#     projectId: kube-microservice-app
+#   artifacts:
+#     - image: us.gcr.io/kube-microservice-app/auth
+#       context: auth
+#       sync:
+#         manual:
+#           - src: src/**/*.ts
+#             dest: .
+#       docker:
+#         dockerfile: Dockerfile
+# manifests:
+#   rawYaml:
+#     - ./infra/k8s/*
+# deploy:
+#   kubectl: {}

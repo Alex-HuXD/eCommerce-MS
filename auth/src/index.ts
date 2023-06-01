@@ -4,7 +4,7 @@ const app = express()
 app.use(express.json())
 
 app.get('/api/users/currentuser', (req, res) => {
-    res.send('hello from root. current user in dev mode')
+    res.send('hello from root.')
 })
 
 app.listen(3000, () => {
