@@ -5,6 +5,7 @@ import { signinRouter } from './routes/signin'
 import { signupRouter } from './routes/signup'
 import { signoutRouter } from './routes/signout'
 import { bypassRouter } from './routes/bypass'
+import { NotFoundError } from './errors/not-found-error'
 
 import { errorHandler } from './middlewares/error-handler'
 
@@ -18,6 +19,12 @@ app.use(signinRouter)
 app.use(signoutRouter)
 app.use(bypassRouter)
 
+//empty route
+app.get('*', async () => {
+    throw new NotFoundError()
+})
+
+//middlewares
 app.use(errorHandler)
 
 app.listen(3000, () => {
