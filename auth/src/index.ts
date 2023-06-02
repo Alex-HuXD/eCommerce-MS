@@ -6,6 +6,8 @@ import { signupRouter } from './routes/signup'
 import { signoutRouter } from './routes/signout'
 import { bypassRouter } from './routes/bypass'
 
+import { errorHandler } from './middlewares/error-handler'
+
 const app = express()
 app.use(express.json())
 
@@ -15,6 +17,8 @@ app.use(signupRouter)
 app.use(signinRouter)
 app.use(signoutRouter)
 app.use(bypassRouter)
+
+app.use(errorHandler)
 
 app.listen(3000, () => {
     console.log('listen on port 3000!!!!!')
