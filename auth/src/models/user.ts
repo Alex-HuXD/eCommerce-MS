@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { Password } from '../utils/password'
 
 // descripts the required properties for create new user
 interface IUserAttrs {
@@ -26,6 +27,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+})
+
+//automatically
+userSchema.pre('save', async function (done) {
+    if (this.isModified('password')) {
+        const hashed = await Password.toHash(this.get('password'))
+        this.set('password', hashed)
+    }
+    done()
 })
 
 // For effective type checking with TS,
