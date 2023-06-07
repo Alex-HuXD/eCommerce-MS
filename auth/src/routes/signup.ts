@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express'
 import { body, validationResult } from 'express-validator'
 import { RequestValidationError } from '../errors/request-validation-error'
-import { DatabaseConnectionError } from '../errors/database-connection-error'
 
 const router = express.Router()
 
@@ -14,17 +13,20 @@ router.post(
             .isLength({ min: 6, max: 20 })
             .withMessage('Password must be tween 6 and 20 characters'),
     ],
-    (req: Request, res: Response) => {
-        const errors = validationResult(req)
+    async (req: Request, res: Response) => {
+        try {
+            //check for validation
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                throw new RequestValidationError(errors.array())
+            }
 
-        if (!errors.isEmpty()) {
-            throw new RequestValidationError(errors.array())
+            //check if exsiting
+            const { email, password } = req.body
+        } catch (err) {
+            console.log(err)
+            res.status(500).json({ error: 'Internal Server Error' })
         }
-
-        console.log('creating new use ...')
-        throw new DatabaseConnectionError()
-
-        res.send({ err: false })
     }
 )
 

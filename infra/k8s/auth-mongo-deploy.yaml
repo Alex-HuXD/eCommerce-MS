@@ -30,5 +30,3 @@ spec:
   ports:
     - port: 27017
       targetPort: 27017
-      name: db
-      protocol: TCP

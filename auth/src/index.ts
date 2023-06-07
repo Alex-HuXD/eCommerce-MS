@@ -21,7 +21,7 @@ app.use(signoutRouter)
 app.use(bypassRouter)
 
 //empty route
-app.get('*', async () => {
+app.all('*', () => {
     throw new NotFoundError()
 })
 
