@@ -49,8 +49,7 @@ router.post(
             req.session = {
                 jwt: userJWT,
             }
-
-            res.status(201).send(`user created: ${user}`)
+            res.status(201).send(`user created: ${JSON.stringify(user)}`)
         } catch (err) {
             console.log(err)
             next(err)
