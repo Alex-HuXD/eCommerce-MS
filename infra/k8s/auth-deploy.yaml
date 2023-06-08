@@ -15,6 +15,13 @@ spec:
       containers:
         - name: auth
           image: huxdev/auth
+          #  setup the secret in cluster first or get error
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
           # GCloud Image
           # image: us.gcr.io/kube-microservice-app/auth
 
